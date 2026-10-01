@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Hyunchang Kweon"
+  site-url: "https://tkweon426.github.io"
+  search: true
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: projects.qmd
+        text: Projects
+      - href: studies.qmd
+        text: Studies
+      - href: cv.qmd
+        text: CV
+    right:
+      - icon: github
+        href: https://github.com/tkweon426
+
+format:
+  html:
+    theme: cosmo
+    toc: true
