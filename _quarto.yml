@@ -16,7 +16,7 @@ website:
         text: Projects
       - href: studies.qmd
         text: Studies
-      - href: cv.qmd
+      - href: assets/documents/hyunchang_cv.pdf
         text: Resume
     right:
       - icon: github
