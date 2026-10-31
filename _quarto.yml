@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - assets/documents/hyunchang_cv.pdf
 
 website:
   title: "Hyunchang Kweon"
@@ -15,7 +17,7 @@ website:
       - href: studies.qmd
         text: Studies
       - href: cv.qmd
-        text: CV
+        text: Resume
     right:
       - icon: github
         href: https://github.com/tkweon426
