@@ -1,17 +1,73 @@
 [
   {
+    "objectID": "projects/occlusion-drone.html",
+    "href": "projects/occlusion-drone.html",
+    "title": "Occlusion-Aware Drone Tracking",
+    "section": "",
+    "text": "AAE 568 · Team project\nHyunchang Kweon (Thomas), Chen-Yu Chang, and Gabriel Oliveira\nRead the full report (PDF) View code on GitHub"
+  },
+  {
+    "objectID": "projects/occlusion-drone.html#the-problem",
+    "href": "projects/occlusion-drone.html#the-problem",
+    "title": "Occlusion-Aware Drone Tracking",
+    "section": "The problem",
+    "text": "The problem\nFollowing a moving target requires more than staying close. When the target passes behind an obstacle, a drone can lose its line of sight even while remaining on a collision-free path. This project explores how a controller can balance visibility, tracking distance, obstacle avoidance, and control effort.\nWe studied this problem in a two-dimensional simulation with circular and elliptical obstacles. The drone maintains a fixed altitude, and the target follows a scripted path. The team compared an online SLSQP-based model predictive controller, an LQR-based controller, and an offline optimal-control benchmark based on Pontryagin’s Maximum Principle (PMP)."
+  },
+  {
+    "objectID": "projects/occlusion-drone.html#my-contribution",
+    "href": "projects/occlusion-drone.html#my-contribution",
+    "title": "Occlusion-Aware Drone Tracking",
+    "section": "My contribution",
+    "text": "My contribution\nAs documented in the report’s individual contributions section (Section VI, page 12), I was responsible for:\n\nDynamics formulation: modeled the planar quadcopter and reduced its position dynamics to a double integrator using virtual acceleration inputs.\nSimulation environment: built the base PyGame environment for testing obstacle layouts, target trajectories, and interchangeable controllers, with recording and logging support.\nOcclusion-aware SLSQP-MPC: developed the controller formulation and explored three target trajectory predictors.\nEvaluation: wrote the scripts for calculating metrics and comparing visibility, tracking performance, acceleration cost, and controller computation time."
+  },
+  {
+    "objectID": "projects/occlusion-drone.html#controller-design",
+    "href": "projects/occlusion-drone.html#controller-design",
+    "title": "Occlusion-Aware Drone Tracking",
+    "section": "Controller design",
+    "text": "Controller design\nAt each update, the controller predicts the target’s motion and optimizes a sequence of planar acceleration commands. It applies the first command, receives a new observation, and repeats the optimization.\nThe objective combines control effort, deviation from the desired tracking distance, and an occlusion penalty. Circular and elliptical obstacles are mapped into normalized coordinates so the controller can measure how closely the drone-to-target line of sight passes to an obstacle. An exponential penalty discourages configurations with poor visibility.\nThe optimization also imposes obstacle collision constraints, a minimum target separation throughout the horizon, a maximum target distance at the terminal step, and acceleration limits. Analytical cost gradients and constraint Jacobians are mapped from predicted positions to acceleration inputs for the SLSQP solver."
+  },
+  {
+    "objectID": "projects/occlusion-drone.html#three-target-predictors",
+    "href": "projects/occlusion-drone.html#three-target-predictors",
+    "title": "Occlusion-Aware Drone Tracking",
+    "section": "Three target predictors",
+    "text": "Three target predictors\nThe controller is evaluated with three ways of predicting the same target’s future motion. The attractive-field model changes the prediction, while the simulated target follows the scripted trajectory.\n\n\nConstant velocity\nEstimates velocity from consecutive position measurements and extrapolates it across the prediction horizon.\n\n\n\nDrone tracking with the constant-velocity predictor.\n\n\n\n\nVelocity and acceleration\nEstimates both velocity and acceleration, with exponential moving averages to smooth the measurements.\n\n\n\nDrone tracking with the velocity-and-acceleration predictor.\n\n\n\n\nAttractive field\nAdds an obstacle-attracted motion heuristic to anticipate a target that moves around obstacles to increase occlusion.\n\n\n\nDrone tracking with the attractive-field predictor.\n\n\n\n\nThe blue marker is the drone, the red marker is the target, and the connecting line indicates their line of sight."
+  },
+  {
+    "objectID": "projects/occlusion-drone.html#results",
+    "href": "projects/occlusion-drone.html#results",
+    "title": "Occlusion-Aware Drone Tracking",
+    "section": "Results",
+    "text": "Results\n\nTrajectories and time histories\n\n\n\nDrone and target trajectories with prediction horizons for all three predictors.\n\n\n\n\n\nVisibility, controller computation time, tracking error, and acceleration over the simulated run.\n\n\nSelect either plot to view it at full resolution.\n\n\nPredictor comparison\nThe following values are reported in Table I, page 7 of the final report. Visibility values are scores, rather than percentages; the acceleration cost is the report’s squared-acceleration metric.\n\n\n\n\n\n\n\n\n\nMetric\nConstant velocity\nVelocity + acceleration\nAttractive field\n\n\n\n\nAverage visibility score\n2.131\n2.223\n2.079\n\n\nMinimum visibility score\n0.160\n0.148\n0.243\n\n\nAverage computation time (ms)\n4.602\n10.114\n9.888\n\n\nMaximum computation time (ms)\n20.573\n138.687\n87.815\n\n\nAcceleration cost (m²/s⁴)\n11.450\n16.075\n14.362\n\n\n\nConstant velocity produced the smoothest response and the lowest acceleration cost. Velocity and acceleration achieved the highest average visibility score, alongside a rougher trajectory and larger computation-time spikes. Attractive field achieved the highest minimum visibility score, suggesting that anticipating obstacle-seeking target motion can improve the worst visibility encountered in this scenario.\nThese results use fixed controller weights in a scripted 2D scenario. They demonstrate a tradeoff between prediction complexity, visibility, and smoothness; broader weight tuning and more varied target behaviors are needed to establish how well the findings generalize.\n\n\nTeam comparisons\nChen-Yu Chang developed the LQR-based controller, including constraint and penalty terms. The report describes improvements in path consistency and visibility recovery through side-bias guidance and line-of-sight recovery logic.\nGabriel Oliveira developed the offline PMP benchmark, which uses the complete target trajectory before simulation. It provides a full-information reference for the online methods. In the reported comparison, it maintained tracking distance and line of sight but incurred a higher acceleration cost than the online MPC cases."
+  },
+  {
+    "objectID": "projects/occlusion-drone.html#what-i-would-explore-next",
+    "href": "projects/occlusion-drone.html#what-i-would-explore-next",
+    "title": "Occlusion-Aware Drone Tracking",
+    "section": "What I would explore next",
+    "text": "What I would explore next\nA broader ablation of controller weights and predictor settings would help separate the effects of prediction from those of cost tuning. Other extensions identified in the report include richer models of evasive target motion and a higher-fidelity quadcopter model beyond the fixed-altitude 2D approximation."
+  },
+  {
+    "objectID": "projects/occlusion-drone.html#report-and-credits",
+    "href": "projects/occlusion-drone.html#report-and-credits",
+    "title": "Occlusion-Aware Drone Tracking",
+    "section": "Report and credits",
+    "text": "Report and credits\nOptimal Control Strategies for 2D Occlusion Aware Dynamic Tracking — Chen-Yu Chang, Gabriel Oliveira, and Hyunchang Kweon.\nThe report is the source for the contribution breakdown, controller descriptions, and numerical results on this page. The animations and comparison figures accompany the SLSQP-MPC predictor study.\nRead the full report (PDF) · View code on GitHub · Back to projects"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Hyunchang Kweon",
     "section": "",
-    "text": "Hi! I'm Hyunchang Kweon, and I also go by Thomas. I'm currently studying aerospace engineering at Seoul National University and have been admitted to Purdue University for a master's degree in aerospace engineering. My interests include safe control and data-driven learning for aerial platforms."
+    "text": "Hi! I’m Hyunchang Kweon, and I also go by Thomas. I’m currently studying aerospace engineering at Seoul National University and have been admitted to Purdue University for a master’s degree in aerospace engineering. My interests include safe control and data-driven learning for aerial platforms."
   },
   {
     "objectID": "index.html#featured-work",
     "href": "index.html#featured-work",
     "title": "Hyunchang Kweon",
     "section": "Featured work",
-    "text": "Featured work\nAdd your strongest projects here.\nExplore my projects"
+    "text": "Featured work\nOcclusion-Aware Drone Tracking — Model predictive control for tracking a moving target while avoiding obstacles and preserving line of sight.\nExplore my projects"
   },
   {
     "objectID": "index.html#contact",
@@ -21,10 +77,17 @@
     "text": "Contact\nEmail: thomas426789@gmail.com"
   },
   {
-    "objectID": "cv.html",
-    "href": "cv.html",
-    "title": "Resume",
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
     "section": "",
-    "text": ""
+    "text": "Model predictive control for a drone following a moving target around obstacles while preserving line of sight. I developed the planar dynamics, simulation environment, SLSQP-MPC controller with three target predictors, and evaluation scripts.\n\n\n\nComparison of drone trajectories for three target prediction methods\n\n\nExplore the project"
+  },
+  {
+    "objectID": "projects.html#occlusion-aware-drone-tracking",
+    "href": "projects.html#occlusion-aware-drone-tracking",
+    "title": "Projects",
+    "section": "",
+    "text": "Model predictive control for a drone following a moving target around obstacles while preserving line of sight. I developed the planar dynamics, simulation environment, SLSQP-MPC controller with three target predictors, and evaluation scripts.\n\n\n\nComparison of drone trajectories for three target prediction methods\n\n\nExplore the project"
   }
 ]

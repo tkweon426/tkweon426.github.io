@@ -1,0 +1,12 @@
+---
+title: "Projects"
+toc: false
+---
+
+## [Occlusion-Aware Drone Tracking](projects/occlusion-drone.qmd)
+
+Model predictive control for a drone following a moving target around obstacles while preserving line of sight. I developed the planar dynamics, simulation environment, SLSQP-MPC controller with three target predictors, and evaluation scripts.
+
+[![Comparison of drone trajectories for three target prediction methods](assets/projects/project-occlusion_drone/comparison.png)](projects/occlusion-drone.qmd)
+
+[Explore the project](projects/occlusion-drone.qmd)

@@ -7,7 +7,7 @@ Hi! I'm Hyunchang Kweon, and I also go by Thomas. I'm currently studying aerospa
 
 ## Featured work
 
-Add your strongest projects here.
+[**Occlusion-Aware Drone Tracking**](projects/occlusion-drone.qmd) — Model predictive control for tracking a moving target while avoiding obstacles and preserving line of sight.
 
 [Explore my projects](projects.qmd)
 
