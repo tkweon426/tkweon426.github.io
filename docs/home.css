@@ -1,0 +1,34 @@
+.home-intro {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  margin-block: 1.5rem 2rem;
+}
+
+.home-portrait {
+  flex: 0 0 auto;
+  width: 11rem;
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+}
+
+.home-intro-text {
+  min-width: 0;
+}
+
+.home-intro-text p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 575px) {
+  .home-intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .home-portrait {
+    width: 10rem;
+  }
+}

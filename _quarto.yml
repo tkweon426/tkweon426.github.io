@@ -2,6 +2,7 @@ project:
   type: website
   output-dir: docs
   resources:
+    - assets/clean_portrait_photo.jpg
     - assets/documents/hyunchang_cv.pdf
     - assets/projects/project-occlusion_drone/**
     - assets/projects/project-robotaircraftcomp/web/**

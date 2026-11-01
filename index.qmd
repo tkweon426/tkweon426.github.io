@@ -1,9 +1,18 @@
 ---
 title: "Hyunchang Kweon"
 toc: false
+css: home.css
 ---
 
+::: {.home-intro}
+```{=html}
+<img class="home-portrait" src="assets/clean_portrait_photo.jpg" alt="Portrait of Hyunchang Kweon" width="617" height="617">
+```
+
+::: {.home-intro-text}
 Hi! I'm Hyunchang Kweon, and I also go by Thomas. I'm currently studying aerospace engineering at Seoul National University and have been admitted to Purdue University for a master's degree in aerospace engineering. My interests include safe control and data-driven learning for aerial platforms.
+:::
+:::
 
 ## Featured work
 
