@@ -22,6 +22,8 @@ Hi! I'm Hyunchang Kweon, and I also go by Thomas. I'm currently studying aerospa
 
 [**2025 AIAA Design/Build/Fly**](projects/aiaa-dbf-2025.qmd) — CFD team leadership, airfoil selection, aerodynamic analysis, and fluid–structure interaction analysis for Team Korea's competition aircraft.
 
+[**Motion Blur in Aerial 3D Reconstruction**](projects/cs592-aerial-reconstruction.qmd) — FFT-based analysis of motion blur in drone imagery and its effect on 3D Gaussian Splatting reconstruction quality.
+
 [Explore my projects](projects.qmd)
 
 ## Contact

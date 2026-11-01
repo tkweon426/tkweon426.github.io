@@ -42,6 +42,76 @@
     "text": "Team and outcome\nThe project ran from April to September 2025. Working with Team Bulnabi at Seoul National University, I contributed perception and control software to a shared aircraft development effort that placed in the top 7 of 37 teams.\n\n\n\nTeam Bulnabi gathered around the aircraft in the workshop.\n\n\nBack to projects"
   },
   {
+    "objectID": "projects/cs592-aerial-reconstruction.html",
+    "href": "projects/cs592-aerial-reconstruction.html",
+    "title": "Motion Blur in Aerial 3D Reconstruction",
+    "section": "",
+    "text": "Team: Yun Seok Gwon and Hyunchang Kweon (Thomas)\nCan removing blurred drone images improve a 3D reconstruction, even when it leaves fewer training views? My main contribution to this project was the motion blur analysis, examining FFT-based image scoring, frame filtering, and their effect on 3D Gaussian Splatting (3DGS). I also helped explore the project’s broader questions about flight altitude, reconstruction quality, and semantic understanding.\nAt the best tested threshold on one UAVScenes sequence, filtering improved held-out PSNR from 20.452 to 21.568 dB, a gain of approximately 1.12 dB.\nRead the full report (PDF)"
+  },
+  {
+    "objectID": "projects/cs592-aerial-reconstruction.html#my-contribution-and-project-context",
+    "href": "projects/cs592-aerial-reconstruction.html#my-contribution-and-project-context",
+    "title": "Motion Blur in Aerial 3D Reconstruction",
+    "section": "My contribution and project context",
+    "text": "My contribution and project context\nThe team investigated two challenges in creating useful 3D representations from drone imagery: the effect of flight altitude on geometry and semantics, and the effect of motion blur on reconstruction fidelity.\nMy main contribution focused on the second question: how to quantify blur without a sharp reference image, how aggressively to filter the training images, and how the resulting reconstructions compare on held-out views. I also contributed to exploration of the other areas, including 3DGS, CLIP, SAM 2, and language-embedded scene representations.\nThe report’s Part II, Sections VII–X (pages 7–9) covers the motion blur study. The altitude and semantic experiments are presented as shared project context below."
+  },
+  {
+    "objectID": "projects/cs592-aerial-reconstruction.html#quantifying-motion-blur-with-fft",
+    "href": "projects/cs592-aerial-reconstruction.html#quantifying-motion-blur-with-fft",
+    "title": "Motion Blur in Aerial 3D Reconstruction",
+    "section": "Quantifying motion blur with FFT",
+    "text": "Quantifying motion blur with FFT\nMotion blur suppresses fine image detail, reducing high-frequency content. The pipeline uses this observation to assign each frame a reference-free sharpness score:\n\nConvert the RGB image to grayscale.\nApply a two-dimensional Hann window to reduce boundary artifacts.\nCompute a 2D Fast Fourier Transform and its power spectrum.\nSplit the spectrum into low-, mid-, and high-frequency radial bands.\nCombine the mid- and high-frequency energy ratios into a weighted score.\n\nThe score uses weights of 0.6 for high-frequency energy and 0.4 for mid-frequency energy, scaled by 1,000. Higher scores indicate sharper images. Filtering keeps frames whose scores meet or exceed the selected threshold.\n\n\n\nFFT-based blur quantification pipeline.\n\n\nSource: Figure 8, report, page 7."
+  },
+  {
+    "objectID": "projects/cs592-aerial-reconstruction.html#isolating-the-effect-on-reconstruction",
+    "href": "projects/cs592-aerial-reconstruction.html#isolating-the-effect-on-reconstruction",
+    "title": "Motion Blur in Aerial 3D Reconstruction",
+    "section": "Isolating the effect on reconstruction",
+    "text": "Isolating the effect on reconstruction\nThe experiment used a 336-frame subset of the UAVScenes HKAirport_GNSS_Evening sequence. Ten manually selected sharp frames were held out for testing and excluded from every training subset. Rejection thresholds ranged from 0.0 to 2.0, in steps of 0.2, producing progressively sharper subsets of the remaining images.\nTo reduce the influence of camera-registration failures, the study bypassed Structure-from-Motion: it used dataset-provided camera poses and LiDAR points for Gaussian initialization. This setup was intended to isolate the effect of blurred training images on 3DGS optimization.\n\n\n\nDistribution of image sharpness scores and rejection thresholds.\n\n\nSource: Figure 9, report, page 8.\nThe reconstructions were evaluated on the same held-out images using PSNR and SSIM, where higher is better, and LPIPS, where lower is better."
+  },
+  {
+    "objectID": "projects/cs592-aerial-reconstruction.html#results",
+    "href": "projects/cs592-aerial-reconstruction.html#results",
+    "title": "Motion Blur in Aerial 3D Reconstruction",
+    "section": "Results",
+    "text": "Results\n\n\n\n3DGS reconstruction metrics across rejection thresholds.\n\n\nSource: Figure 10, report, page 9.\n\n\n\nMetric\nNo rejection (0.0)\nBest tested threshold (2.0)\nChange\n\n\n\n\nPSNR (dB, higher is better)\n20.452\n21.568\n+1.116\n\n\nSSIM (higher is better)\n0.632\n0.674\n+0.042\n\n\nLPIPS (lower is better)\n0.556\n0.477\n−0.079\n\n\n\nValues from Table VII, report, page 8; changes calculated from the reported baseline and threshold-2.0 values.\nSmall threshold increases produced modest, sometimes non-monotonic changes. The clearest gains appeared beyond approximately 1.2, with the strictest tested setting performing best on all three metrics. In this experiment, removing additional blurred views improved reconstruction quality despite reducing the number of training images.\nOne explanation discussed in the report is that moderately blurred frames retain displaced edges that conflict with sharper views during optimization. This is a hypothesis consistent with the observed trends; the threshold sweep does not establish that mechanism on its own.\n\nWhat the results establish\nThe experiment supports blur-aware data selection for this sequence, with several limits:\n\nOne sequence and ten test views: broader validation is needed across scenes, trajectories, and lighting conditions.\nScene-dependent scores: texture changes the frequency distribution, so a threshold of 2.0 is not a universal setting.\nUnmeasured sparsity limit: performance had not begun to decline at the highest tested threshold; the experiment did not locate the point where too few views hurt reconstruction.\nDataset-provided initialization: the evaluation does not measure the complete effect of filtering on an SfM-based pipeline."
+  },
+  {
+    "objectID": "projects/cs592-aerial-reconstruction.html#shared-exploration-altitude-and-semantics",
+    "href": "projects/cs592-aerial-reconstruction.html#shared-exploration-altitude-and-semantics",
+    "title": "Motion Blur in Aerial 3D Reconstruction",
+    "section": "Shared exploration: altitude and semantics",
+    "text": "Shared exploration: altitude and semantics\nThe wider project evaluated aerial reconstruction alongside CLIP-based semantic recognition and SAM 2 segmentation. Across the evaluated sequences, lower-altitude imagery often supported stronger geometric reconstruction, while higher-altitude imagery provided more object-level context for semantic recognition. Some higher-altitude subsets also suffered SfM failures.\n\n\n\nCLIP similarity maps at three flight altitudes.\n\n\nSource: Figure 4, report, page 5.\nThe team also explored how annotation granularity affects SAM 2 boundary scores. Fine predicted boundaries can disagree with coarser human polygons, complicating interpretation of the metric.\nThese experiments examined components of a potential language-queryable aerial map. The reported CLIP evaluation used ground-truth region crops; full evaluation of SAM-generated crops and altitude-stratified LangSplatV2 language fields was deferred. The project therefore motivates further work on integrated systems without demonstrating a complete end-to-end solution."
+  },
+  {
+    "objectID": "projects/cs592-aerial-reconstruction.html#report-and-credits",
+    "href": "projects/cs592-aerial-reconstruction.html#report-and-credits",
+    "title": "Motion Blur in Aerial 3D Reconstruction",
+    "section": "Report and credits",
+    "text": "Report and credits\nAssessment of the Challenges in Creating High-Quality, Semantically Rich Representations from Aerial Data — Yun Seok Gwon and Hyunchang Kweon (Thomas), CS592: Autonomous Drones, Purdue University.\nAll figures on this page are extracted from the team report. My primary contribution was the motion blur analysis, with additional participation in the broader reconstruction and semantic exploration.\nRead the full report (PDF) · Back to projects"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Hyunchang Kweon",
+    "section": "",
+    "text": "Hi! I’m Hyunchang Kweon, and I also go by Thomas. I’m currently studying aerospace engineering at Seoul National University and have been admitted to Purdue University for a master’s degree in aerospace engineering. My interests include safe control and data-driven learning for aerial platforms."
+  },
+  {
+    "objectID": "index.html#featured-work",
+    "href": "index.html#featured-work",
+    "title": "Hyunchang Kweon",
+    "section": "Featured work",
+    "text": "Featured work\nOcclusion-Aware Drone Tracking — Model predictive control for tracking a moving target while avoiding obstacles and preserving line of sight.\nAutonomous Rescue VTOL Aircraft — Visual target recognition and alignment control for the 23rd Korea Robotic Aircraft Competition. Our team placed in the top 7 of 37 teams.\n2025 AIAA Design/Build/Fly — CFD team leadership, airfoil selection, aerodynamic analysis, and fluid–structure interaction analysis for Team Korea’s competition aircraft.\nMotion Blur in Aerial 3D Reconstruction — FFT-based analysis of motion blur in drone imagery and its effect on 3D Gaussian Splatting reconstruction quality.\nExplore my projects"
+  },
+  {
+    "objectID": "index.html#contact",
+    "href": "index.html#contact",
+    "title": "Hyunchang Kweon",
+    "section": "Contact",
+    "text": "Contact\nEmail: thomas426789@gmail.com"
+  },
+  {
     "objectID": "projects/aiaa-dbf-2025.html",
     "href": "projects/aiaa-dbf-2025.html",
     "title": "2025 AIAA Design/Build/Fly",
@@ -103,27 +173,6 @@
     "title": "2025 AIAA Design/Build/Fly",
     "section": "Report and credits",
     "text": "Report and credits\nThe aircraft design and demonstrations are the work of Team Korea. The technical figures and analysis summaries on this page come from Team Korea’s 2024–2025 AIAA Design/Build/Fly final report. My contribution focused on CFD leadership, airfoil selection, aerodynamic analysis, and fluid–structure interaction.\nRead the final report (PDF) · Back to projects"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Hyunchang Kweon",
-    "section": "",
-    "text": "Hi! I’m Hyunchang Kweon, and I also go by Thomas. I’m currently studying aerospace engineering at Seoul National University and have been admitted to Purdue University for a master’s degree in aerospace engineering. My interests include safe control and data-driven learning for aerial platforms."
-  },
-  {
-    "objectID": "index.html#featured-work",
-    "href": "index.html#featured-work",
-    "title": "Hyunchang Kweon",
-    "section": "Featured work",
-    "text": "Featured work\nOcclusion-Aware Drone Tracking — Model predictive control for tracking a moving target while avoiding obstacles and preserving line of sight.\nAutonomous Rescue VTOL Aircraft — Visual target recognition and alignment control for the 23rd Korea Robotic Aircraft Competition. Our team placed in the top 7 of 37 teams.\n2025 AIAA Design/Build/Fly — CFD team leadership, airfoil selection, aerodynamic analysis, and fluid–structure interaction analysis for Team Korea’s competition aircraft.\nExplore my projects"
-  },
-  {
-    "objectID": "index.html#contact",
-    "href": "index.html#contact",
-    "title": "Hyunchang Kweon",
-    "section": "Contact",
-    "text": "Contact\nEmail: thomas426789@gmail.com"
   },
   {
     "objectID": "projects/occlusion-drone.html",
@@ -208,5 +257,12 @@
     "title": "Projects",
     "section": "2025 AIAA Design/Build/Fly",
     "text": "2025 AIAA Design/Build/Fly\nCFD team leadership for Team Korea’s competition aircraft. My work covered airfoil selection, automated aerodynamic analysis with Ansys Fluent, and fluid–structure interaction analysis with Ansys Mechanical.\n\n\n\nTeam Korea’s twin-motor aircraft in flight\n\n\nExplore the project"
+  },
+  {
+    "objectID": "projects.html#motion-blur-in-aerial-3d-reconstruction",
+    "href": "projects.html#motion-blur-in-aerial-3d-reconstruction",
+    "title": "Projects",
+    "section": "Motion Blur in Aerial 3D Reconstruction",
+    "text": "Motion Blur in Aerial 3D Reconstruction\nMy main contribution to this CS592 team project was analyzing how motion-blurred training images affect 3D Gaussian Splatting. FFT-based frame filtering improved held-out PSNR by 1.12 dB at the best tested threshold on one UAVScenes sequence. I also helped explore altitude, reconstruction, and semantic understanding.\n\n\n\nReconstruction quality across blur rejection thresholds\n\n\nExplore the project"
   }
 ]

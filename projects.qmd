@@ -26,3 +26,11 @@ CFD team leadership for Team Korea's competition aircraft. My work covered airfo
 [![Team Korea's twin-motor aircraft in flight](assets/projects/project-aiaa-2025/web/aircraft-in-flight-1.jpg)](projects/aiaa-dbf-2025.qmd)
 
 [Explore the project](projects/aiaa-dbf-2025.qmd)
+
+## [Motion Blur in Aerial 3D Reconstruction](projects/cs592-aerial-reconstruction.qmd)
+
+My main contribution to this CS592 team project was analyzing how motion-blurred training images affect 3D Gaussian Splatting. FFT-based frame filtering improved held-out PSNR by 1.12 dB at the best tested threshold on one UAVScenes sequence. I also helped explore altitude, reconstruction, and semantic understanding.
+
+[![Reconstruction quality across blur rejection thresholds](assets/projects/project-cs592/web/reconstruction-results.png)](projects/cs592-aerial-reconstruction.qmd)
+
+[Explore the project](projects/cs592-aerial-reconstruction.qmd)

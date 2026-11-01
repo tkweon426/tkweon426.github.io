@@ -1,0 +1,98 @@
+---
+title: "Motion Blur in Aerial 3D Reconstruction"
+subtitle: "CS592: Autonomous Drones · Purdue University"
+description: "My motion blur analysis for a team study of aerial 3D reconstruction and semantic understanding, including FFT-based frame filtering and 3D Gaussian Splatting evaluation."
+toc: true
+toc-depth: 2
+---
+
+**Team: Yun Seok Gwon and Hyunchang Kweon (Thomas)**
+
+Can removing blurred drone images improve a 3D reconstruction, even when it leaves fewer training views? My main contribution to this project was the **motion blur analysis**, examining FFT-based image scoring, frame filtering, and their effect on **3D Gaussian Splatting (3DGS)**. I also helped explore the project's broader questions about flight altitude, reconstruction quality, and semantic understanding.
+
+At the best tested threshold on one UAVScenes sequence, filtering improved held-out PSNR from **20.452 to 21.568 dB**, a gain of approximately **1.12 dB**.
+
+[Read the full report (PDF)](/assets/projects/project-cs592/CS592_finalreport.pdf){.btn .btn-outline-primary}
+
+## My contribution and project context
+
+The team investigated two challenges in creating useful 3D representations from drone imagery: the effect of flight altitude on geometry and semantics, and the effect of motion blur on reconstruction fidelity.
+
+My main contribution focused on the second question: how to quantify blur without a sharp reference image, how aggressively to filter the training images, and how the resulting reconstructions compare on held-out views. I also contributed to exploration of the other areas, including 3DGS, CLIP, SAM 2, and language-embedded scene representations.
+
+The report's **Part II, Sections VII–X (pages 7–9)** covers the motion blur study. The altitude and semantic experiments are presented as shared project context below.
+
+## Quantifying motion blur with FFT
+
+Motion blur suppresses fine image detail, reducing high-frequency content. The pipeline uses this observation to assign each frame a reference-free sharpness score:
+
+1. Convert the RGB image to grayscale.
+2. Apply a two-dimensional Hann window to reduce boundary artifacts.
+3. Compute a 2D Fast Fourier Transform and its power spectrum.
+4. Split the spectrum into low-, mid-, and high-frequency radial bands.
+5. Combine the mid- and high-frequency energy ratios into a weighted score.
+
+The score uses weights of **0.6 for high-frequency energy** and **0.4 for mid-frequency energy**, scaled by 1,000. Higher scores indicate sharper images. Filtering keeps frames whose scores meet or exceed the selected threshold.
+
+[![FFT-based blur quantification pipeline.](/assets/projects/project-cs592/web/fft-blur-pipeline.png){loading="lazy" fig-alt="Five stages of the blur scoring pipeline: original aerial image, grayscale conversion, Hann window, FFT log power spectrum, and radial frequency bands."}](/assets/projects/project-cs592/web/fft-blur-pipeline.png)
+
+*Source: Figure 8, [report, page 7](/assets/projects/project-cs592/CS592_finalreport.pdf#page=7).*
+
+## Isolating the effect on reconstruction
+
+The experiment used a **336-frame subset** of the UAVScenes **HKAirport_GNSS_Evening** sequence. **Ten manually selected sharp frames** were held out for testing and excluded from every training subset. Rejection thresholds ranged from **0.0 to 2.0**, in steps of **0.2**, producing progressively sharper subsets of the remaining images.
+
+To reduce the influence of camera-registration failures, the study bypassed Structure-from-Motion: it used dataset-provided camera poses and LiDAR points for Gaussian initialization. This setup was intended to isolate the effect of blurred training images on 3DGS optimization.
+
+[![Distribution of image sharpness scores and rejection thresholds.](/assets/projects/project-cs592/web/blur-score-distribution.png){loading="lazy" fig-alt="Histogram of blur scores in the selected sequence, with vertical lines marking thresholds from zero to two; higher scores mean sharper frames."}](/assets/projects/project-cs592/web/blur-score-distribution.png)
+
+*Source: Figure 9, [report, page 8](/assets/projects/project-cs592/CS592_finalreport.pdf#page=8).*
+
+The reconstructions were evaluated on the same held-out images using PSNR and SSIM, where higher is better, and LPIPS, where lower is better.
+
+## Results
+
+[![3DGS reconstruction metrics across rejection thresholds.](/assets/projects/project-cs592/web/reconstruction-results.png){loading="lazy" fig-alt="Three plots show PSNR and SSIM increasing and LPIPS decreasing as the blur rejection threshold rises, with the clearest improvements above approximately 1.2."}](/assets/projects/project-cs592/web/reconstruction-results.png)
+
+*Source: Figure 10, [report, page 9](/assets/projects/project-cs592/CS592_finalreport.pdf#page=9).*
+
+| Metric | No rejection (0.0) | Best tested threshold (2.0) | Change |
+|:--|--:|--:|--:|
+| PSNR (dB, higher is better) | 20.452 | 21.568 | +1.116 |
+| SSIM (higher is better) | 0.632 | 0.674 | +0.042 |
+| LPIPS (lower is better) | 0.556 | 0.477 | −0.079 |
+
+*Values from Table VII, [report, page 8](/assets/projects/project-cs592/CS592_finalreport.pdf#page=8); changes calculated from the reported baseline and threshold-2.0 values.*
+
+Small threshold increases produced modest, sometimes non-monotonic changes. The clearest gains appeared beyond approximately **1.2**, with the strictest tested setting performing best on all three metrics. In this experiment, removing additional blurred views improved reconstruction quality despite reducing the number of training images.
+
+One explanation discussed in the report is that moderately blurred frames retain displaced edges that conflict with sharper views during optimization. This is a hypothesis consistent with the observed trends; the threshold sweep does not establish that mechanism on its own.
+
+### What the results establish
+
+The experiment supports blur-aware data selection for this sequence, with several limits:
+
+- **One sequence and ten test views:** broader validation is needed across scenes, trajectories, and lighting conditions.
+- **Scene-dependent scores:** texture changes the frequency distribution, so a threshold of 2.0 is not a universal setting.
+- **Unmeasured sparsity limit:** performance had not begun to decline at the highest tested threshold; the experiment did not locate the point where too few views hurt reconstruction.
+- **Dataset-provided initialization:** the evaluation does not measure the complete effect of filtering on an SfM-based pipeline.
+
+## Shared exploration: altitude and semantics
+
+The wider project evaluated aerial reconstruction alongside CLIP-based semantic recognition and SAM 2 segmentation. Across the evaluated sequences, lower-altitude imagery often supported stronger geometric reconstruction, while higher-altitude imagery provided more object-level context for semantic recognition. Some higher-altitude subsets also suffered SfM failures.
+
+[![CLIP similarity maps at three flight altitudes.](/assets/projects/project-cs592/web/clip-altitude-comparison.png){loading="lazy" fig-alt="CLIP cosine similarity maps for the text query roof, comparing low-, mid-, and high-altitude views of an urban scene."}](/assets/projects/project-cs592/web/clip-altitude-comparison.png)
+
+*Source: Figure 4, [report, page 5](/assets/projects/project-cs592/CS592_finalreport.pdf#page=5).*
+
+The team also explored how annotation granularity affects SAM 2 boundary scores. Fine predicted boundaries can disagree with coarser human polygons, complicating interpretation of the metric.
+
+These experiments examined components of a potential language-queryable aerial map. The reported CLIP evaluation used **ground-truth region crops**; full evaluation of SAM-generated crops and altitude-stratified LangSplatV2 language fields was deferred. The project therefore motivates further work on integrated systems without demonstrating a complete end-to-end solution.
+
+## Report and credits
+
+*Assessment of the Challenges in Creating High-Quality, Semantically Rich Representations from Aerial Data* — Yun Seok Gwon and Hyunchang Kweon (Thomas), CS592: Autonomous Drones, Purdue University.
+
+All figures on this page are extracted from the team report. My primary contribution was the motion blur analysis, with additional participation in the broader reconstruction and semantic exploration.
+
+[Read the full report (PDF)](/assets/projects/project-cs592/CS592_finalreport.pdf) · [Back to projects](/projects.qmd)
