@@ -1,5 +1,68 @@
 [
   {
+    "objectID": "projects/robot-aircraft-competition.html",
+    "href": "projects/robot-aircraft-competition.html",
+    "title": "Autonomous Rescue VTOL Aircraft",
+    "section": "",
+    "text": "April–September 2025 · Seoul National University · Team Bulnabi\nI worked on the control software engineering team for a model aircraft with vertical takeoff and landing (VTOL) capabilities and visual target recognition for autonomous rescue. My work focused on perception and control software using YOLO and ROS 2 for target recognition and alignment control.\nOur team placed in the top 7 of 37 teams at the 23rd Korea Robotic Aircraft Competition."
+  },
+  {
+    "objectID": "projects/robot-aircraft-competition.html#flight-demonstration",
+    "href": "projects/robot-aircraft-competition.html#flight-demonstration",
+    "title": "Autonomous Rescue VTOL Aircraft",
+    "section": "Flight demonstration",
+    "text": "Flight demonstration\nWatch the aircraft in flight in the project demonstration below.\n\n  \n    \n    Download the flight demonstration video.\n  \n  Flight demonstration from the robotic aircraft competition project."
+  },
+  {
+    "objectID": "projects/robot-aircraft-competition.html#my-contribution",
+    "href": "projects/robot-aircraft-competition.html#my-contribution",
+    "title": "Autonomous Rescue VTOL Aircraft",
+    "section": "My contribution",
+    "text": "My contribution\nAs a member of the control software engineering team, I developed software connecting visual target recognition with aircraft alignment control:\n\nTarget recognition: used YOLO for the perception component of the autonomous rescue task.\nPerception and control integration: developed ROS 2 software for target recognition and alignment control.\n\nThe aircraft design, construction, and competition result were a team effort. The photos below document the aircraft’s development and the separate quadcopter used for computer vision testing."
+  },
+  {
+    "objectID": "projects/robot-aircraft-competition.html#aircraft-development",
+    "href": "projects/robot-aircraft-competition.html#aircraft-development",
+    "title": "Autonomous Rescue VTOL Aircraft",
+    "section": "Aircraft development",
+    "text": "Aircraft development\n\nPreliminary design\nThe preliminary aircraft combined a winged airframe with four lift rotors. The photo and hover test document this early configuration.\n\n\n\nPreliminary aircraft design during outdoor testing.\n\n\n\n  \n    \n    Download the preliminary hover test video.\n  \n  Hover testing of the preliminary aircraft design.\n\n\n\nAircraft hardware\nThis view shows the aircraft with its wings detached, exposing the central airframe, lift rotors, and landing gear.\n\n\n\nAircraft hardware with the wings detached."
+  },
+  {
+    "objectID": "projects/robot-aircraft-competition.html#computer-vision-test-platform",
+    "href": "projects/robot-aircraft-competition.html#computer-vision-test-platform",
+    "title": "Autonomous Rescue VTOL Aircraft",
+    "section": "Computer vision test platform",
+    "text": "Computer vision test platform\nA separate quadcopter was used for computer vision testing. The dedicated platform allowed the perception work to be tested alongside development of the competition aircraft.\n\n\n\nSeparate quadcopter used for computer vision testing."
+  },
+  {
+    "objectID": "projects/robot-aircraft-competition.html#team-and-outcome",
+    "href": "projects/robot-aircraft-competition.html#team-and-outcome",
+    "title": "Autonomous Rescue VTOL Aircraft",
+    "section": "Team and outcome",
+    "text": "Team and outcome\nThe project ran from April to September 2025. Working with Team Bulnabi at Seoul National University, I contributed perception and control software to a shared aircraft development effort that placed in the top 7 of 37 teams.\n\n\n\nTeam Bulnabi gathered around the aircraft in the workshop.\n\n\nBack to projects"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Hyunchang Kweon",
+    "section": "",
+    "text": "Hi! I’m Hyunchang Kweon, and I also go by Thomas. I’m currently studying aerospace engineering at Seoul National University and have been admitted to Purdue University for a master’s degree in aerospace engineering. My interests include safe control and data-driven learning for aerial platforms."
+  },
+  {
+    "objectID": "index.html#featured-work",
+    "href": "index.html#featured-work",
+    "title": "Hyunchang Kweon",
+    "section": "Featured work",
+    "text": "Featured work\nOcclusion-Aware Drone Tracking — Model predictive control for tracking a moving target while avoiding obstacles and preserving line of sight.\nAutonomous Rescue VTOL Aircraft — Visual target recognition and alignment control for the 23rd Korea Robotic Aircraft Competition. Our team placed in the top 7 of 37 teams.\nExplore my projects"
+  },
+  {
+    "objectID": "index.html#contact",
+    "href": "index.html#contact",
+    "title": "Hyunchang Kweon",
+    "section": "Contact",
+    "text": "Contact\nEmail: thomas426789@gmail.com"
+  },
+  {
     "objectID": "projects/occlusion-drone.html",
     "href": "projects/occlusion-drone.html",
     "title": "Occlusion-Aware Drone Tracking",
@@ -56,27 +119,6 @@
     "text": "Report and credits\nOptimal Control Strategies for 2D Occlusion Aware Dynamic Tracking — Chen-Yu Chang, Gabriel Oliveira, and Hyunchang Kweon.\nThe report is the source for the contribution breakdown, controller descriptions, and numerical results on this page. The animations and comparison figures accompany the SLSQP-MPC predictor study.\nRead the full report (PDF) · View code on GitHub · Back to projects"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Hyunchang Kweon",
-    "section": "",
-    "text": "Hi! I’m Hyunchang Kweon, and I also go by Thomas. I’m currently studying aerospace engineering at Seoul National University and have been admitted to Purdue University for a master’s degree in aerospace engineering. My interests include safe control and data-driven learning for aerial platforms."
-  },
-  {
-    "objectID": "index.html#featured-work",
-    "href": "index.html#featured-work",
-    "title": "Hyunchang Kweon",
-    "section": "Featured work",
-    "text": "Featured work\nOcclusion-Aware Drone Tracking — Model predictive control for tracking a moving target while avoiding obstacles and preserving line of sight.\nExplore my projects"
-  },
-  {
-    "objectID": "index.html#contact",
-    "href": "index.html#contact",
-    "title": "Hyunchang Kweon",
-    "section": "Contact",
-    "text": "Contact\nEmail: thomas426789@gmail.com"
-  },
-  {
     "objectID": "projects.html",
     "href": "projects.html",
     "title": "Projects",
@@ -89,5 +131,12 @@
     "title": "Projects",
     "section": "",
     "text": "Model predictive control for a drone following a moving target around obstacles while preserving line of sight. I developed the planar dynamics, simulation environment, SLSQP-MPC controller with three target predictors, and evaluation scripts.\n\n\n\nComparison of drone trajectories for three target prediction methods\n\n\nExplore the project"
+  },
+  {
+    "objectID": "projects.html#autonomous-rescue-vtol-aircraft",
+    "href": "projects.html#autonomous-rescue-vtol-aircraft",
+    "title": "Projects",
+    "section": "Autonomous Rescue VTOL Aircraft",
+    "text": "Autonomous Rescue VTOL Aircraft\nA VTOL aircraft with visual target recognition for the 23rd Korea Robotic Aircraft Competition. I worked on YOLO and ROS 2 perception and control software for target recognition and alignment. Our team placed in the top 7 of 37 teams.\n\n\n\nAircraft flight demonstration\n\n\nExplore the project"
   }
 ]

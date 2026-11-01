@@ -10,3 +10,11 @@ Model predictive control for a drone following a moving target around obstacles 
 [![Comparison of drone trajectories for three target prediction methods](assets/projects/project-occlusion_drone/comparison.png)](projects/occlusion-drone.qmd)
 
 [Explore the project](projects/occlusion-drone.qmd)
+
+## [Autonomous Rescue VTOL Aircraft](projects/robot-aircraft-competition.qmd)
+
+A VTOL aircraft with visual target recognition for the 23rd Korea Robotic Aircraft Competition. I worked on YOLO and ROS 2 perception and control software for target recognition and alignment. Our team placed in the top 7 of 37 teams.
+
+[![Aircraft flight demonstration](assets/projects/project-robotaircraftcomp/web/main-poster.jpg)](projects/robot-aircraft-competition.qmd)
+
+[Explore the project](projects/robot-aircraft-competition.qmd)

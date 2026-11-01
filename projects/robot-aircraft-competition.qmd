@@ -1,0 +1,75 @@
+---
+title: "Autonomous Rescue VTOL Aircraft"
+subtitle: "23rd Korea Robotic Aircraft Competition"
+description: "Visual target recognition and alignment control with YOLO and ROS 2 for a VTOL rescue aircraft. Top 7 of 37 teams in the 2025 Korea Robotic Aircraft Competition."
+toc: true
+toc-depth: 2
+css: robot-aircraft-competition.css
+---
+
+**April–September 2025 · Seoul National University · Team Bulnabi**
+
+I worked on the control software engineering team for a model aircraft with vertical takeoff and landing (VTOL) capabilities and visual target recognition for autonomous rescue. My work focused on perception and control software using **YOLO** and **ROS 2** for target recognition and alignment control.
+
+Our team placed in the **top 7 of 37 teams** at the 23rd Korea Robotic Aircraft Competition.
+
+## Flight demonstration
+
+Watch the aircraft in flight in the project demonstration below.
+
+```{=html}
+<figure class="project-media">
+  <video class="project-video" controls playsinline preload="none" width="1280" height="720" poster="../assets/projects/project-robotaircraftcomp/web/main-poster.jpg" aria-label="Robotic aircraft project flight demonstration">
+    <source src="../assets/projects/project-robotaircraftcomp/web/flight-demo.mp4" type="video/mp4">
+    <a href="../assets/projects/project-robotaircraftcomp/web/flight-demo.mp4">Download the flight demonstration video.</a>
+  </video>
+  <figcaption>Flight demonstration from the robotic aircraft competition project.</figcaption>
+</figure>
+```
+
+## My contribution
+
+As a member of the control software engineering team, I developed software connecting visual target recognition with aircraft alignment control:
+
+- **Target recognition:** used YOLO for the perception component of the autonomous rescue task.
+- **Perception and control integration:** developed ROS 2 software for target recognition and alignment control.
+
+The aircraft design, construction, and competition result were a team effort. The photos below document the aircraft's development and the separate quadcopter used for computer vision testing.
+
+## Aircraft development
+
+### Preliminary design
+
+The preliminary aircraft combined a winged airframe with four lift rotors. The photo and hover test document this early configuration.
+
+![Preliminary aircraft design during outdoor testing.](/assets/projects/project-robotaircraftcomp/web/preliminary-design.jpg){.project-photo loading="lazy" fig-alt="An early white and red winged aircraft with four lift rotors on a field at night."}
+
+```{=html}
+<figure class="project-media">
+  <video class="project-video project-video-portrait" controls playsinline preload="none" width="720" height="1280" poster="../assets/projects/project-robotaircraftcomp/web/hover-poster.jpg" aria-label="Preliminary aircraft hover test">
+    <source src="../assets/projects/project-robotaircraftcomp/web/preliminary-hover.mp4" type="video/mp4">
+    <a href="../assets/projects/project-robotaircraftcomp/web/preliminary-hover.mp4">Download the preliminary hover test video.</a>
+  </video>
+  <figcaption>Hover testing of the preliminary aircraft design.</figcaption>
+</figure>
+```
+
+### Aircraft hardware
+
+This view shows the aircraft with its wings detached, exposing the central airframe, lift rotors, and landing gear.
+
+![Aircraft hardware with the wings detached.](/assets/projects/project-robotaircraftcomp/web/aircraft-without-wings.jpg){.project-photo loading="lazy" fig-alt="The aircraft on a paved surface with its wings detached, showing four lift rotors and orange landing gear."}
+
+## Computer vision test platform
+
+A separate quadcopter was used for computer vision testing. The dedicated platform allowed the perception work to be tested alongside development of the competition aircraft.
+
+![Separate quadcopter used for computer vision testing.](/assets/projects/project-robotaircraftcomp/web/vision-test-quadcopter.jpg){.project-photo loading="lazy" fig-alt="A quadcopter with onboard electronics connected to a laptop during computer vision development."}
+
+## Team and outcome
+
+The project ran from April to September 2025. Working with Team Bulnabi at Seoul National University, I contributed perception and control software to a shared aircraft development effort that placed in the top 7 of 37 teams.
+
+![Team Bulnabi gathered around the aircraft in the workshop.](/assets/projects/project-robotaircraftcomp/web/bulnabi-team.jpg){.project-photo loading="lazy" fig-alt="Bulnabi team members gathered around their aircraft in the workshop."}
+
+[Back to projects](/projects.qmd)

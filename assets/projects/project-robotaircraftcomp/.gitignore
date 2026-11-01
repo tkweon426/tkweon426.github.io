@@ -1,0 +1,3 @@
+# Keep original video uploads locally; the website uses the MP4 copies in web/.
+/main video.mp4
+/preliminary design hover testing.MOV

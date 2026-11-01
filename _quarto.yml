@@ -4,6 +4,7 @@ project:
   resources:
     - assets/documents/hyunchang_cv.pdf
     - assets/projects/project-occlusion_drone/**
+    - assets/projects/project-robotaircraftcomp/web/**
 
 website:
   title: "Hyunchang Kweon"

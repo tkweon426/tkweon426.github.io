@@ -9,6 +9,8 @@ Hi! I'm Hyunchang Kweon, and I also go by Thomas. I'm currently studying aerospa
 
 [**Occlusion-Aware Drone Tracking**](projects/occlusion-drone.qmd) — Model predictive control for tracking a moving target while avoiding obstacles and preserving line of sight.
 
+[**Autonomous Rescue VTOL Aircraft**](projects/robot-aircraft-competition.qmd) — Visual target recognition and alignment control for the 23rd Korea Robotic Aircraft Competition. Our team placed in the top 7 of 37 teams.
+
 [Explore my projects](projects.qmd)
 
 ## Contact
