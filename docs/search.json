@@ -42,6 +42,69 @@
     "text": "Team and outcome\nThe project ran from April to September 2025. Working with Team Bulnabi at Seoul National University, I contributed perception and control software to a shared aircraft development effort that placed in the top 7 of 37 teams.\n\n\n\nTeam Bulnabi gathered around the aircraft in the workshop.\n\n\nBack to projects"
   },
   {
+    "objectID": "projects/aiaa-dbf-2025.html",
+    "href": "projects/aiaa-dbf-2025.html",
+    "title": "2025 AIAA Design/Build/Fly",
+    "section": "",
+    "text": "December 2024–April 2025 · Seoul, Korea & Tucson, USA\nI served as CFD Team Leader for Team Korea in the 2025 AIAA Design/Build/Fly competition. My responsibilities included airfoil selection and analysis of flight characteristics, using Python scripts to automate analysis with the Ansys Fluid API. I also conducted fluid–structure interaction analysis with Ansys Mechanical.\nRead the final report (PDF)"
+  },
+  {
+    "objectID": "projects/aiaa-dbf-2025.html#the-aircraft-and-mission",
+    "href": "projects/aiaa-dbf-2025.html#the-aircraft-and-mission",
+    "title": "2025 AIAA Design/Build/Fly",
+    "section": "The aircraft and mission",
+    "text": "The aircraft and mission\nTeam Korea brought together students from Seoul National University, Gyeongsang National University, and Konkuk University. The team developed Beomgorae, a twin-motor carrier aircraft, and Gaori, a flying-wing X-1 test vehicle, for the competition’s flight and ground missions.\nThe design balanced payload capacity, flight speed, endurance, and the ability to carry and release the X-1 glider. The main aircraft used a low wing and a twin-boom H-tail. Aerodynamic analysis supported decisions about the wing geometry, airfoil, and mission configurations."
+  },
+  {
+    "objectID": "projects/aiaa-dbf-2025.html#my-contribution",
+    "href": "projects/aiaa-dbf-2025.html#my-contribution",
+    "title": "2025 AIAA Design/Build/Fly",
+    "section": "My contribution",
+    "text": "My contribution\nMy role focused on the analysis that informed the aircraft design:\n\nCFD team leadership: led the team’s CFD work on aerodynamic performance and flight characteristics.\nAirfoil selection: evaluated candidate airfoils against lift and efficiency requirements.\nAutomated analysis: used Python and the Ansys Fluid API to support repeated aerodynamic analyses across aircraft configurations.\nFluid–structure interaction: used Ansys Mechanical to evaluate structural response to aerodynamic loading.\n\nThe aircraft, glider, manufacturing, and flight demonstrations were a wider team effort. The analysis figures below are extracted from Team Korea’s final report, which lists me on the aircraft analysis team in Section 2.1 (page 5)."
+  },
+  {
+    "objectID": "projects/aiaa-dbf-2025.html#airfoil-selection",
+    "href": "projects/aiaa-dbf-2025.html#airfoil-selection",
+    "title": "2025 AIAA Design/Build/Fly",
+    "section": "Airfoil selection",
+    "text": "Airfoil selection\nThe report describes screening 1,648 airfoils from the UIUC database using XFLR5 at a Reynolds number of 700,000 and Mach 0.1. The selection considered lift capability and lift-to-drag ratio at the operating angles of attack.\nThe comparison below shows the symmetric S9027 alongside the cambered SG6043 and E216. SG6043 and E216 were retained for further sizing because they better met the lift and efficiency requirements. The final aircraft used E216.\n\n\n\nLift and lift-to-drag curves for the three selected airfoils.\n\n\nSource: Figure 4.3, final report, page 18."
+  },
+  {
+    "objectID": "projects/aiaa-dbf-2025.html#cfd-and-aerodynamic-performance",
+    "href": "projects/aiaa-dbf-2025.html#cfd-and-aerodynamic-performance",
+    "title": "2025 AIAA Design/Build/Fly",
+    "section": "CFD and aerodynamic performance",
+    "text": "CFD and aerodynamic performance\n\nConfiguration comparisons\nThe team used Ansys Fluent to evaluate the aircraft’s aerodynamic characteristics across mission configurations. The report describes a k–omega turbulence model, polyhedral meshing, and a Python script for running multiple configurations. The freestream velocity in the reported setup was 34 m/s.\nThe fuel tank, X-1 glider, and release hardware changed the external geometry, so the configurations were analyzed separately. The streamlines show how the surrounding flow changes with the added hardware.\n\n\n\nVelocity streamlines around two aircraft mission configurations.\n\n\nSource: Figure 4.23, final report, page 31.\n\n\n\nLift and drag coefficients across angles of attack for different mission configurations.\n\n\nSource: Figure 4.24, final report, page 31.\nThe report identifies stall at approximately 12.5° in both analyzed configurations. The Mission 2 and 3 configurations produced slightly lower lift and higher drag than Mission 1, illustrating the aerodynamic cost of the additional mission hardware.\n\n\nChecking the sizing model\nTeam Korea’s FORCAST sizing tool combined rapid lifting-surface analysis with a fuselage drag correction derived from Fluent. The comparison below checks its lift and drag predictions against Fluent for the same geometry.\n\n\n\nComparison of FORCAST and Ansys aerodynamic coefficients.\n\n\nSource: Figure 4.8, final report, page 21.\nThe models followed similar trends within the reported operating range of −3° to 10°. The report also identifies a limit of the rapid vortex-lattice model: it cannot predict stall, making the Fluent comparison useful near the edge of the operating envelope."
+  },
+  {
+    "objectID": "projects/aiaa-dbf-2025.html#from-aerodynamic-loads-to-structural-response",
+    "href": "projects/aiaa-dbf-2025.html#from-aerodynamic-loads-to-structural-response",
+    "title": "2025 AIAA Design/Build/Fly",
+    "section": "From aerodynamic loads to structural response",
+    "text": "From aerodynamic loads to structural response\nThe structural analysis mapped Fluent pressure distributions onto the aircraft structure. The report considered an extreme load case up to 10g, assuming a linear elastic response without buckling, and examined stresses in the wing, fuselage, empennage, and internal supports.\n\n\n\nStructural stress distributions on aircraft surfaces and internal supports.\n\n\nSource: Figures 5.10–5.13, final report, page 38.\nThe report’s stress summary gives 85.48 MPa for the fuselage and main-wing composite surfaces and 14.91 MPa for the inner supports. These are simulation results under the stated assumptions. The report notes that physical testing remains necessary to account for manufacturing imperfections and fiber alignment.\nSelect any analysis figure to view it at full resolution."
+  },
+  {
+    "objectID": "projects/aiaa-dbf-2025.html#flight-and-separation-demonstrations",
+    "href": "projects/aiaa-dbf-2025.html#flight-and-separation-demonstrations",
+    "title": "2025 AIAA Design/Build/Fly",
+    "section": "Flight and separation demonstrations",
+    "text": "Flight and separation demonstrations\nThe uploaded videos document the team’s aircraft in flight and the glider separation demonstration.\n\n\n  \n    \n    Download the first flight video.\n  \n  Flight demonstration 1.\n\n\n  \n    \n    Download the second flight video.\n  \n  Flight demonstration 2.\n\n\n\n  \n    \n    Download the glider separation video.\n  \n  X-1 glider separation demonstration."
+  },
+  {
+    "objectID": "projects/aiaa-dbf-2025.html#aircraft-and-team-gallery",
+    "href": "projects/aiaa-dbf-2025.html#aircraft-and-team-gallery",
+    "title": "2025 AIAA Design/Build/Fly",
+    "section": "Aircraft and team gallery",
+    "text": "Aircraft and team gallery\n\n\n\n\nAircraft banking in flight.\n\n\n\n\n\nAnother view of the aircraft in flight.\n\n\n\n\n\nAircraft on the runway.\n\n\n\n\n\nAircraft and equipment during indoor preparation.\n\n\n\n\n\n\nTeam members at the Design Build Fly winter camp."
+  },
+  {
+    "objectID": "projects/aiaa-dbf-2025.html#report-and-credits",
+    "href": "projects/aiaa-dbf-2025.html#report-and-credits",
+    "title": "2025 AIAA Design/Build/Fly",
+    "section": "Report and credits",
+    "text": "Report and credits\nThe aircraft design and demonstrations are the work of Team Korea. The technical figures and analysis summaries on this page come from Team Korea’s 2024–2025 AIAA Design/Build/Fly final report. My contribution focused on CFD leadership, airfoil selection, aerodynamic analysis, and fluid–structure interaction.\nRead the final report (PDF) · Back to projects"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Hyunchang Kweon",
@@ -53,7 +116,7 @@
     "href": "index.html#featured-work",
     "title": "Hyunchang Kweon",
     "section": "Featured work",
-    "text": "Featured work\nOcclusion-Aware Drone Tracking — Model predictive control for tracking a moving target while avoiding obstacles and preserving line of sight.\nAutonomous Rescue VTOL Aircraft — Visual target recognition and alignment control for the 23rd Korea Robotic Aircraft Competition. Our team placed in the top 7 of 37 teams.\nExplore my projects"
+    "text": "Featured work\nOcclusion-Aware Drone Tracking — Model predictive control for tracking a moving target while avoiding obstacles and preserving line of sight.\nAutonomous Rescue VTOL Aircraft — Visual target recognition and alignment control for the 23rd Korea Robotic Aircraft Competition. Our team placed in the top 7 of 37 teams.\n2025 AIAA Design/Build/Fly — CFD team leadership, airfoil selection, aerodynamic analysis, and fluid–structure interaction analysis for Team Korea’s competition aircraft.\nExplore my projects"
   },
   {
     "objectID": "index.html#contact",
@@ -138,5 +201,12 @@
     "title": "Projects",
     "section": "Autonomous Rescue VTOL Aircraft",
     "text": "Autonomous Rescue VTOL Aircraft\nA VTOL aircraft with visual target recognition for the 23rd Korea Robotic Aircraft Competition. I worked on YOLO and ROS 2 perception and control software for target recognition and alignment. Our team placed in the top 7 of 37 teams.\n\n\n\nAircraft flight demonstration\n\n\nExplore the project"
+  },
+  {
+    "objectID": "projects.html#aiaa-designbuildfly",
+    "href": "projects.html#aiaa-designbuildfly",
+    "title": "Projects",
+    "section": "2025 AIAA Design/Build/Fly",
+    "text": "2025 AIAA Design/Build/Fly\nCFD team leadership for Team Korea’s competition aircraft. My work covered airfoil selection, automated aerodynamic analysis with Ansys Fluent, and fluid–structure interaction analysis with Ansys Mechanical.\n\n\n\nTeam Korea’s twin-motor aircraft in flight\n\n\nExplore the project"
   }
 ]

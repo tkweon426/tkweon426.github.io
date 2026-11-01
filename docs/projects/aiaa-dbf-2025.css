@@ -1,0 +1,56 @@
+.aiaa-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-block: 1.5rem;
+}
+
+.aiaa-gallery > * {
+  min-width: 0;
+}
+
+.aiaa-gallery img {
+  width: 100%;
+  height: 20rem;
+  object-fit: contain;
+}
+
+.aiaa-media {
+  margin: 1.5rem 0;
+}
+
+.aiaa-gallery .aiaa-media {
+  margin: 0;
+}
+
+.aiaa-media video {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #111;
+}
+
+.aiaa-media figcaption {
+  margin-top: 0.5rem;
+  color: var(--bs-secondary-color);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+img.aiaa-narrow {
+  display: block;
+  max-width: 34rem;
+  width: 100%;
+  margin-inline: auto;
+}
+
+@media (max-width: 767px) {
+  .aiaa-gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .aiaa-gallery img {
+    height: auto;
+    max-height: 28rem;
+  }
+}

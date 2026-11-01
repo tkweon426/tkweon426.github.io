@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Airfoil selection, automated Ansys Fluent analysis, and fluid–structure interaction analysis for Team Korea’s 2025 AIAA Design/Build/Fly aircraft.">
+
+<title>2025 AIAA Design/Build/Fly – Hyunchang Kweon</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="aiaa-dbf-2025.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Hyunchang Kweon</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html">
+<span class="menu-text">Home</span></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../projects.html">
+<span class="menu-text">Projects</span></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../studies.html">
+<span class="menu-text">Studies</span></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../assets/documents/hyunchang_cv.pdf">
+<span class="menu-text">Resume</span></a>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/tkweon426"> <i class="bi bi-github" role="img">
+</i>
+<span class="menu-text"></span></a>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+
+  <ul class="collapse">
+  <li><a href="#the-aircraft-and-mission" id="toc-the-aircraft-and-mission" class="nav-link active" data-scroll-target="#the-aircraft-and-mission">The aircraft and mission</a></li>
+  <li><a href="#my-contribution" id="toc-my-contribution" class="nav-link" data-scroll-target="#my-contribution">My contribution</a></li>
+  <li><a href="#airfoil-selection" id="toc-airfoil-selection" class="nav-link" data-scroll-target="#airfoil-selection">Airfoil selection</a></li>
+  <li><a href="#cfd-and-aerodynamic-performance" id="toc-cfd-and-aerodynamic-performance" class="nav-link" data-scroll-target="#cfd-and-aerodynamic-performance">CFD and aerodynamic performance</a></li>
+  <li><a href="#from-aerodynamic-loads-to-structural-response" id="toc-from-aerodynamic-loads-to-structural-response" class="nav-link" data-scroll-target="#from-aerodynamic-loads-to-structural-response">From aerodynamic loads to structural response</a></li>
+  <li><a href="#flight-and-separation-demonstrations" id="toc-flight-and-separation-demonstrations" class="nav-link" data-scroll-target="#flight-and-separation-demonstrations">Flight and separation demonstrations</a></li>
+  <li><a href="#aircraft-and-team-gallery" id="toc-aircraft-and-team-gallery" class="nav-link" data-scroll-target="#aircraft-and-team-gallery">Aircraft and team gallery</a></li>
+  <li><a href="#report-and-credits" id="toc-report-and-credits" class="nav-link" data-scroll-target="#report-and-credits">Report and credits</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">2025 AIAA Design/Build/Fly</h1>
+<p class="subtitle lead">CFD team leadership · Team Korea</p>
+</div>
+
+<div>
+  <div class="description">
+    Airfoil selection, automated Ansys Fluent analysis, and fluid–structure interaction analysis for Team Korea’s 2025 AIAA Design/Build/Fly aircraft.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+
+
+
+  </div>
+
+
+
+</header>
+
+
+<p><strong>December 2024–April 2025 · Seoul, Korea &amp; Tucson, USA</strong></p>
+<p>I served as <strong>CFD Team Leader</strong> for Team Korea in the 2025 AIAA Design/Build/Fly competition. My responsibilities included airfoil selection and analysis of flight characteristics, using Python scripts to automate analysis with the Ansys Fluid API. I also conducted fluid–structure interaction analysis with Ansys Mechanical.</p>
+<p><a href="../assets/projects/project-aiaa-2025/TeamKorea_Final_Report.pdf" class="btn btn-outline-primary">Read the final report (PDF)</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/projects/project-aiaa-2025/web/aircraft-in-flight-1.jpg" class="img-fluid figure-img" loading="lazy" alt="Team Korea's black twin-motor, twin-boom aircraft flying against a blue sky."></p>
+<figcaption>Team Korea’s competition aircraft in flight.</figcaption>
+</figure>
+</div>
+<section id="the-aircraft-and-mission" class="level2">
+<h2 class="anchored" data-anchor-id="the-aircraft-and-mission">The aircraft and mission</h2>
+<p>Team Korea brought together students from Seoul National University, Gyeongsang National University, and Konkuk University. The team developed <strong>Beomgorae</strong>, a twin-motor carrier aircraft, and <strong>Gaori</strong>, a flying-wing X-1 test vehicle, for the competition’s flight and ground missions.</p>
+<p>The design balanced payload capacity, flight speed, endurance, and the ability to carry and release the X-1 glider. The main aircraft used a low wing and a twin-boom H-tail. Aerodynamic analysis supported decisions about the wing geometry, airfoil, and mission configurations.</p>
+</section>
+<section id="my-contribution" class="level2">
+<h2 class="anchored" data-anchor-id="my-contribution">My contribution</h2>
+<p>My role focused on the analysis that informed the aircraft design:</p>
+<ul>
+<li><strong>CFD team leadership:</strong> led the team’s CFD work on aerodynamic performance and flight characteristics.</li>
+<li><strong>Airfoil selection:</strong> evaluated candidate airfoils against lift and efficiency requirements.</li>
+<li><strong>Automated analysis:</strong> used Python and the Ansys Fluid API to support repeated aerodynamic analyses across aircraft configurations.</li>
+<li><strong>Fluid–structure interaction:</strong> used Ansys Mechanical to evaluate structural response to aerodynamic loading.</li>
+</ul>
+<p>The aircraft, glider, manufacturing, and flight demonstrations were a wider team effort. The analysis figures below are extracted from Team Korea’s final report, which lists me on the aircraft analysis team in Section 2.1 (page 5).</p>
+</section>
+<section id="airfoil-selection" class="level2">
+<h2 class="anchored" data-anchor-id="airfoil-selection">Airfoil selection</h2>
+<p>The report describes screening <strong>1,648 airfoils</strong> from the UIUC database using XFLR5 at a Reynolds number of <strong>700,000</strong> and Mach <strong>0.1</strong>. The selection considered lift capability and lift-to-drag ratio at the operating angles of attack.</p>
+<p>The comparison below shows the symmetric S9027 alongside the cambered SG6043 and E216. SG6043 and E216 were retained for further sizing because they better met the lift and efficiency requirements. The final aircraft used <strong>E216</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/projects/project-aiaa-2025/web/airfoil-comparison.png"><img src="../assets/projects/project-aiaa-2025/web/airfoil-comparison.png" class="aiaa-narrow img-fluid figure-img" loading="lazy" alt="Lift coefficient and lift-to-drag ratio plotted against angle of attack for S9027, SG6043, and E216."></a></p>
+<figcaption>Lift and lift-to-drag curves for the three selected airfoils.</figcaption>
+</figure>
+</div>
+<p><em>Source: Figure 4.3, <a href="../assets/projects/project-aiaa-2025/TeamKorea_Final_Report.pdf#page=18">final report, page 18</a>.</em></p>
+</section>
+<section id="cfd-and-aerodynamic-performance" class="level2">
+<h2 class="anchored" data-anchor-id="cfd-and-aerodynamic-performance">CFD and aerodynamic performance</h2>
+<section id="configuration-comparisons" class="level3">
+<h3 class="anchored" data-anchor-id="configuration-comparisons">Configuration comparisons</h3>
+<p>The team used <strong>Ansys Fluent</strong> to evaluate the aircraft’s aerodynamic characteristics across mission configurations. The report describes a k–omega turbulence model, polyhedral meshing, and a Python script for running multiple configurations. The freestream velocity in the reported setup was <strong>34 m/s</strong>.</p>
+<p>The fuel tank, X-1 glider, and release hardware changed the external geometry, so the configurations were analyzed separately. The streamlines show how the surrounding flow changes with the added hardware.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/projects/project-aiaa-2025/web/cfd-streamlines.png"><img src="../assets/projects/project-aiaa-2025/web/cfd-streamlines.png" class="img-fluid figure-img" loading="lazy" alt="Two Ansys Fluent visualizations comparing velocity streamlines around the aircraft with different external configurations."></a></p>
+<figcaption>Velocity streamlines around two aircraft mission configurations.</figcaption>
+</figure>
+</div>
+<p><em>Source: Figure 4.23, <a href="../assets/projects/project-aiaa-2025/TeamKorea_Final_Report.pdf#page=31">final report, page 31</a>.</em></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/projects/project-aiaa-2025/web/lift-drag-coefficients.png"><img src="../assets/projects/project-aiaa-2025/web/lift-drag-coefficients.png" class="img-fluid figure-img" loading="lazy" alt="Lift and drag coefficient curves for Mission 1 on the left and Missions 2 and 3 on the right."></a></p>
+<figcaption>Lift and drag coefficients across angles of attack for different mission configurations.</figcaption>
+</figure>
+</div>
+<p><em>Source: Figure 4.24, <a href="../assets/projects/project-aiaa-2025/TeamKorea_Final_Report.pdf#page=31">final report, page 31</a>.</em></p>
+<p>The report identifies stall at approximately <strong>12.5°</strong> in both analyzed configurations. The Mission 2 and 3 configurations produced slightly lower lift and higher drag than Mission 1, illustrating the aerodynamic cost of the additional mission hardware.</p>
+</section>
+<section id="checking-the-sizing-model" class="level3">
+<h3 class="anchored" data-anchor-id="checking-the-sizing-model">Checking the sizing model</h3>
+<p>Team Korea’s <strong>FORCAST</strong> sizing tool combined rapid lifting-surface analysis with a fuselage drag correction derived from Fluent. The comparison below checks its lift and drag predictions against Fluent for the same geometry.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/projects/project-aiaa-2025/web/aerodynamic-validation.png"><img src="../assets/projects/project-aiaa-2025/web/aerodynamic-validation.png" class="aiaa-narrow img-fluid figure-img" loading="lazy" alt="Solid FORCAST and dashed Ansys curves comparing lift and drag coefficients as angle of attack increases."></a></p>
+<figcaption>Comparison of FORCAST and Ansys aerodynamic coefficients.</figcaption>
+</figure>
+</div>
+<p><em>Source: Figure 4.8, <a href="../assets/projects/project-aiaa-2025/TeamKorea_Final_Report.pdf#page=21">final report, page 21</a>.</em></p>
+<p>The models followed similar trends within the reported operating range of <strong>−3° to 10°</strong>. The report also identifies a limit of the rapid vortex-lattice model: it cannot predict stall, making the Fluent comparison useful near the edge of the operating envelope.</p>
+</section>
+</section>
+<section id="from-aerodynamic-loads-to-structural-response" class="level2">
+<h2 class="anchored" data-anchor-id="from-aerodynamic-loads-to-structural-response">From aerodynamic loads to structural response</h2>
+<p>The structural analysis mapped Fluent pressure distributions onto the aircraft structure. The report considered an extreme load case up to <strong>10g</strong>, assuming a linear elastic response without buckling, and examined stresses in the wing, fuselage, empennage, and internal supports.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../assets/projects/project-aiaa-2025/web/structural-stress.png"><img src="../assets/projects/project-aiaa-2025/web/structural-stress.png" class="img-fluid figure-img" loading="lazy" alt="Four Ansys von Mises stress visualizations covering the main wing and fuselage, their internal structure, the empennage, and its internal structure."></a></p>
+<figcaption>Structural stress distributions on aircraft surfaces and internal supports.</figcaption>
+</figure>
+</div>
+<p><em>Source: Figures 5.10–5.13, <a href="../assets/projects/project-aiaa-2025/TeamKorea_Final_Report.pdf#page=38">final report, page 38</a>.</em></p>
+<p>The report’s stress summary gives <strong>85.48 MPa</strong> for the fuselage and main-wing composite surfaces and <strong>14.91 MPa</strong> for the inner supports. These are simulation results under the stated assumptions. The report notes that physical testing remains necessary to account for manufacturing imperfections and fiber alignment.</p>
+<p>Select any analysis figure to view it at full resolution.</p>
+</section>
+<section id="flight-and-separation-demonstrations" class="level2">
+<h2 class="anchored" data-anchor-id="flight-and-separation-demonstrations">Flight and separation demonstrations</h2>
+<p>The uploaded videos document the team’s aircraft in flight and the glider separation demonstration.</p>
+<div class="aiaa-gallery">
+<figure class="aiaa-media figure">
+  <video controls="" playsinline="" preload="none" width="1280" height="720" poster="../assets/projects/project-aiaa-2025/web/flight-demo-0-poster.jpg" aria-label="Aircraft flight demonstration one">
+    <source src="../assets/projects/project-aiaa-2025/web/flight-demo-0.mp4" type="video/mp4">
+    <a href="../assets/projects/project-aiaa-2025/web/flight-demo-0.mp4">Download the first flight video.</a>
+  </video>
+  <figcaption>Flight demonstration 1.</figcaption>
+</figure>
+<figure class="aiaa-media figure">
+  <video controls="" playsinline="" preload="none" width="1280" height="720" poster="../assets/projects/project-aiaa-2025/web/flight-demo-1-poster.jpg" aria-label="Aircraft flight demonstration two">
+    <source src="../assets/projects/project-aiaa-2025/web/flight-demo-1.mp4" type="video/mp4">
+    <a href="../assets/projects/project-aiaa-2025/web/flight-demo-1.mp4">Download the second flight video.</a>
+  </video>
+  <figcaption>Flight demonstration 2.</figcaption>
+</figure>
+</div>
+<figure class="aiaa-media figure">
+  <video controls="" playsinline="" preload="none" width="1280" height="720" poster="../assets/projects/project-aiaa-2025/web/glider-separation-poster.jpg" aria-label="X-1 glider separation demonstration">
+    <source src="../assets/projects/project-aiaa-2025/web/glider-separation.mp4" type="video/mp4">
+    <a href="../assets/projects/project-aiaa-2025/web/glider-separation.mp4">Download the glider separation video.</a>
+  </video>
+  <figcaption>X-1 glider separation demonstration.</figcaption>
+</figure>
+</section>
+<section id="aircraft-and-team-gallery" class="level2">
+<h2 class="anchored" data-anchor-id="aircraft-and-team-gallery">Aircraft and team gallery</h2>
+<div class="aiaa-gallery">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/projects/project-aiaa-2025/web/aircraft-in-flight-2.jpg" class="img-fluid figure-img" loading="lazy" alt="The twin-boom aircraft viewed from below while banking."></p>
+<figcaption>Aircraft banking in flight.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/projects/project-aiaa-2025/web/aircraft-in-flight-3.jpg" class="img-fluid figure-img" loading="lazy" alt="The aircraft photographed from below against an overcast sky."></p>
+<figcaption>Another view of the aircraft in flight.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/projects/project-aiaa-2025/web/aircraft-on-runway.jpg" class="img-fluid figure-img" loading="lazy" alt="Team Korea's aircraft on a runway with its landing gear extended."></p>
+<figcaption>Aircraft on the runway.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/projects/project-aiaa-2025/web/aircraft-display.jpg" class="img-fluid figure-img" loading="lazy" alt="The competition aircraft and equipment indoors beneath a Korean flag."></p>
+<figcaption>Aircraft and equipment during indoor preparation.</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/projects/project-aiaa-2025/web/team-winter-camp.jpg" class="img-fluid figure-img" loading="lazy" alt="Team members standing behind the 2025 Design Build Fly winter camp banner."></p>
+<figcaption>Team members at the Design Build Fly winter camp.</figcaption>
+</figure>
+</div>
+</section>
+<section id="report-and-credits" class="level2">
+<h2 class="anchored" data-anchor-id="report-and-credits">Report and credits</h2>
+<p>The aircraft design and demonstrations are the work of <strong>Team Korea</strong>. The technical figures and analysis summaries on this page come from <em>Team Korea’s 2024–2025 AIAA Design/Build/Fly final report</em>. My contribution focused on CFD leadership, airfoil selection, aerodynamic analysis, and fluid–structure interaction.</p>
+<p><a href="../assets/projects/project-aiaa-2025/TeamKorea_Final_Report.pdf">Read the final report (PDF)</a> · <a href="../projects.html">Back to projects</a></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button,
+          { trigger: "manual",
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/tkweon426\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config);
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined;
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              }
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            }
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

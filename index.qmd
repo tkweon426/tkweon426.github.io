@@ -11,6 +11,8 @@ Hi! I'm Hyunchang Kweon, and I also go by Thomas. I'm currently studying aerospa
 
 [**Autonomous Rescue VTOL Aircraft**](projects/robot-aircraft-competition.qmd) — Visual target recognition and alignment control for the 23rd Korea Robotic Aircraft Competition. Our team placed in the top 7 of 37 teams.
 
+[**2025 AIAA Design/Build/Fly**](projects/aiaa-dbf-2025.qmd) — CFD team leadership, airfoil selection, aerodynamic analysis, and fluid–structure interaction analysis for Team Korea's competition aircraft.
+
 [Explore my projects](projects.qmd)
 
 ## Contact

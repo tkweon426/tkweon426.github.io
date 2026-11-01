@@ -18,3 +18,11 @@ A VTOL aircraft with visual target recognition for the 23rd Korea Robotic Aircra
 [![Aircraft flight demonstration](assets/projects/project-robotaircraftcomp/web/main-poster.jpg)](projects/robot-aircraft-competition.qmd)
 
 [Explore the project](projects/robot-aircraft-competition.qmd)
+
+## [2025 AIAA Design/Build/Fly](projects/aiaa-dbf-2025.qmd)
+
+CFD team leadership for Team Korea's competition aircraft. My work covered airfoil selection, automated aerodynamic analysis with Ansys Fluent, and fluid–structure interaction analysis with Ansys Mechanical.
+
+[![Team Korea's twin-motor aircraft in flight](assets/projects/project-aiaa-2025/web/aircraft-in-flight-1.jpg)](projects/aiaa-dbf-2025.qmd)
+
+[Explore the project](projects/aiaa-dbf-2025.qmd)

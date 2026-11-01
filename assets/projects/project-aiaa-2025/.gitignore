@@ -1,0 +1,4 @@
+# Keep original video uploads locally; the website uses the MP4 copies in web/.
+/flight demo 0.MOV
+/flight demo 1.MOV
+/glider separation demonstration.mp4

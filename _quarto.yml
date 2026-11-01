@@ -5,6 +5,8 @@ project:
     - assets/documents/hyunchang_cv.pdf
     - assets/projects/project-occlusion_drone/**
     - assets/projects/project-robotaircraftcomp/web/**
+    - assets/projects/project-aiaa-2025/web/**
+    - assets/projects/project-aiaa-2025/TeamKorea_Final_Report.pdf
 
 website:
   title: "Hyunchang Kweon"
